@@ -25,7 +25,7 @@ public class XmlXpathReader {
 	private XmlXpathReader(String xpathXmlName){
 
 		try{
-			xmlFile = new File(System.getProperty("user.dir") +"/src/main/java/programs/"+xpathXmlName+".xml");
+			xmlFile = new File(System.getProperty("user.dir") +"/src/main/java/resource/"+xpathXmlName+".xml");
 		    factory=DocumentBuilderFactory.newInstance();
 		    builder=factory.newDocumentBuilder();
 		    doc=builder.parse(xmlFile);
@@ -52,8 +52,8 @@ public class XmlXpathReader {
 		        nNode=nList.item(i);
 		          ele=(Element) nNode;
 		          
-		          if(ele.getElementsByTagName("key").item(0).getTextContent().equals(xpathName)){
-		        	  value= ele.getElementsByTagName("value").item(0).getTextContent();
+		          if(ele.getElementsByTagName("key").item(0).getNodeValue().equals(xpathName)){
+		        	  value= ele.getElementsByTagName("value").item(0).getNodeValue();
 		        	  break;
 		          }
  
