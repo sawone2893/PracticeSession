@@ -1,4 +1,4 @@
-package programs;
+package utilities;
 
 import java.io.File;
 
@@ -12,16 +12,17 @@ import org.w3c.dom.NodeList;
 
 public class XmlXpathReader {
 	
-	public File xmlFile;
-	DocumentBuilderFactory factory;
-	DocumentBuilder builder;
-	Document doc;
-	NodeList nList;
-	Node nNode;
-	Element ele;
+	private static XmlXpathReader xmlXpathRead;
+	private static File xmlFile;
+	private static DocumentBuilderFactory factory;
+	private static DocumentBuilder builder;
+	private static Document doc;
+	private static NodeList nList;
+	private static Node nNode;
+	private static Element ele;
 	
 	
-	public XmlXpathReader(String xpathXmlName){
+	private XmlXpathReader(String xpathXmlName){
 
 		try{
 			xmlFile = new File(System.getProperty("user.dir") +"/src/main/java/programs/"+xpathXmlName+".xml");
@@ -34,8 +35,15 @@ public class XmlXpathReader {
 
 	}
 	
+	public static XmlXpathReader getInstanceXmlXpathReader(String xpathXmlName){
+		
+		if(xmlXpathRead==null){
+			xmlXpathRead=new XmlXpathReader(xpathXmlName);
+		}
+		return xmlXpathRead;
+	}
 	
-	public String getvalue(String xpathName){
+	public String getProperty(String xpathName){
 		doc.getDocumentElement();
 		  nList=doc.getElementsByTagName("dish");
 		    //System.out.println("The length is: "+nList.getLength());
@@ -56,9 +64,9 @@ public class XmlXpathReader {
 	}
 	public static void main(String args[]){
 		
-		XmlXpathReader xpathValue=new XmlXpathReader("xpaths");
+		XmlXpathReader xpathValue=XmlXpathReader.getInstanceXmlXpathReader("xpaths");
 		
-		System.out.println(xpathValue.getvalue("1027"));
+		System.out.println(xpathValue.getProperty("1027"));
 		
 		
 	}
